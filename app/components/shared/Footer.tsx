@@ -1,15 +1,13 @@
 "use client";
-import {
-  FaSquareXTwitter,
-  FaSquareFacebook,
-  FaSquareSnapchat,
-  FaSquareInstagram,
-} from "react-icons/fa6";
-import useMenuActive from "@/app/hooks/useMenuActive";
 import { navLinks } from "@/app/constants";
-import Route from "../ui/Route";
-import Link from "next/link";
+import {
+  FaSquareFacebook,
+  FaSquareInstagram,
+  FaSquareSnapchat,
+  FaSquareXTwitter,
+} from "react-icons/fa6";
 import Logo from "../ui/Logo";
+import Route from "../ui/Route";
 
 export default function Footer() {
   return (

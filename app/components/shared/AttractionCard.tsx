@@ -1,9 +1,7 @@
-import React from "react";
-import Image from "next/image";
-import { AiOutlineArrowRight } from "react-icons/ai";
-import Tag from "../ui/Tag";
-import Link from "next/link";
 import clsx from "clsx";
+import Image from "next/image";
+import Link from "next/link";
+import { AiOutlineArrowRight } from "react-icons/ai";
 import Map from "../ui/Map";
 
 export default function AttractionCard({
