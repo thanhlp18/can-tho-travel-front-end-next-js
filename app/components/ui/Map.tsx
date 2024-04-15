@@ -34,22 +34,21 @@ const MapComponent = ({ attraction }: { attraction: AttractionType }) => {
   useEffect(() => {
     setIsClient(true);
   }, []);
-
-  const option: IAzureMapOptions = useMemo(() => {
-    return {
-      authOptions: {
-        authType: AuthenticationType.subscriptionKey,
-        subscriptionKey: key,
-      },
-      center: [attraction.location.lng, attraction.location.lat], // Default center 10.031413, 105.768708
-      zoom: 16.5, // Default zoom level
-    };
-  }, []);
-
-  const memoizedMarkerRender = useMemo(() => renderPoint(attraction), []);
   if (!isClient) {
     return null; // Render nothing on the server
   }
+
+  const option: IAzureMapOptions = {
+    authOptions: {
+      authType: AuthenticationType.subscriptionKey,
+      subscriptionKey: key,
+    },
+    center: [attraction.location.lng, attraction.location.lat], // Default center 10.031413, 105.768708
+    zoom: 16.5, // Default zoom level
+  };
+
+  const memoizedMarkerRender = renderPoint(attraction);
+
   return (
     <AzureMapsProvider>
       <div style={{ height: "600px" }}>
