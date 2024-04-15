@@ -1,16 +1,16 @@
-import React, { useState, useMemo } from "react";
+"use client";
+import { AuthenticationType, data } from "azure-maps-control";
+import { useMemo, useState } from "react";
 import {
   AzureMap,
-  AzureMapsProvider,
   AzureMapDataSourceProvider,
   AzureMapFeature,
   AzureMapLayerProvider,
   AzureMapPopup,
+  AzureMapsProvider,
   IAzureMapOptions,
 } from "react-azure-maps";
-import { AuthenticationType, data } from "azure-maps-control";
 import { key } from "./key";
-import { carData } from "./data";
 
 const renderPoint = (data: AttractionType) => {
   return (
