@@ -65,7 +65,15 @@ const page = () => {
           </div>
         </form>
       </div>
-      <Map />
+      <Map
+        attraction={{
+          name: "Can Tho University",
+          address: "1234, 5th Avenue, New York",
+          image: "/assets/contact.jpg",
+          id: "1",
+          location: { lat: 10.030927, lng: 105.769035 },
+        }}
+      />
     </div>
   );
 };

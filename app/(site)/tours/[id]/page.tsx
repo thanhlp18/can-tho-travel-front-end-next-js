@@ -32,6 +32,7 @@ const initialBlogPost: TourType = {
   startTime: "",
   endTime: "",
   attractions: [],
+  isFavorite: false,
 };
 export default function Page({ params }: { params: { id: string } }) {
   const [tour, setTourData] = useState<TourType>(initialBlogPost);

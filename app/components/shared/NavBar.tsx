@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import clsx from "clsx";
 import MobileMenu from "./MobileMenu";
 import useMenuActive from "@/app/hooks/useMenuActive";
+import Logo from "../ui/Logo";
 
 type Props = {};
 
@@ -44,18 +45,17 @@ export default function NavBar({}: Props) {
         )}
       >
         <div className="flex-1">
-          <Link href={"/"}>
-            <h1 className="text-3xl font-extrabold text-secondary">
-              Explore <span className="text-primary"> X </span>
-            </h1>
-          </Link>
+          <Logo />
         </div>
         <ul className="flex items-center justify-center gap-16 flex-2 max-md:hidden">
           {navLinks.map((link, index) => {
             // eslint-disable-next-line react-hooks/rules-of-hooks
             const isActive = useMenuActive(link.route);
             return (
-              <li key={index}>
+              <li
+                key={index}
+                className="hover:border-b-2 hover:border-primary hover:text-primary hover:font-bold"
+              >
                 <Route
                   route={link.route}
                   label={link.label}
@@ -66,11 +66,11 @@ export default function NavBar({}: Props) {
           })}
         </ul>
 
-        <div className="flex gap-5 flex-1 justify-end max-md:hidden">
+        {/* <div className="flex gap-5 flex-1 justify-end max-md:hidden">
           <Button text="Log In" onClick={() => null} aria="Log in button" />
 
           <Button text="Sign Up" onClick={() => null} aria="Sign up button" />
-        </div>
+        </div> */}
 
         <div>
           <MobileMenu />

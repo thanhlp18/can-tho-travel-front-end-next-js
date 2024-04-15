@@ -14,7 +14,7 @@ export default function page({
 
   return (
     <div className="">
-      <div className="grid lg:grid-cols-3 lg:gap-10 grid-cols-1 w-[95%] max-w-[1450px] mx-auto overflow-y-hidden h-fit mt-10  max-lg:space-y-7">
+      <div className="lg:grid lg:grid-cols-3 lg:gap-10 flex flex-col-reverse w-[95%] max-w-[1450px] mx-auto overflow-y-hidden h-fit mt-10  max-lg:space-y-7">
         <Posts filter={{ tags: tags, title: title }} />
         <FilterPosts />
       </div>

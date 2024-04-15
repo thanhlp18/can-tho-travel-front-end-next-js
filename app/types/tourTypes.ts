@@ -9,4 +9,5 @@ type TourType = {
   attractions: string[];
   startTime: string;
   endTime: string;
+  isFavorite: boolean;
 };

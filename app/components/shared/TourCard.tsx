@@ -22,7 +22,7 @@ export default function TourCard({
         className ? className : ""
       )}
     >
-      <div className="w-[600px] h-[300px] relative">
+      <div className="w-[1000px] h-[400px] relative">
         <Image
           src={tour.featureImage}
           alt={`image for ${tour.title}`}

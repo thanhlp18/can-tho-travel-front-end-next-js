@@ -1,3 +1,5 @@
+"use client";
+import Attractions from "@/app/components/shared/Attractions";
 import FilterPosts from "@/app/components/shared/FilterPosts";
 import Posts from "@/app/components/shared/Posts";
 type searchParamsPropsTypes = {
@@ -14,9 +16,8 @@ export default function page({
 
   return (
     <div className="">
-      <div className="grid lg:grid-cols-3 lg:gap-10 grid-cols-1 w-[95%] max-w-[1450px] mx-auto overflow-y-hidden h-fit mt-10  max-lg:space-y-7">
-        <Posts filter={{ tags: tags, title: title }} />
-        <FilterPosts />
+      <div className="grid grid-cols-1 w-[95%] max-w-[1450px] mx-auto overflow-y-hidden h-fit mt-10  max-lg:space-y-7">
+        <Attractions />
       </div>
     </div>
   );

@@ -1,15 +1,104 @@
-const Map = () => {
+import React, { useState, useMemo } from "react";
+import {
+  AzureMap,
+  AzureMapsProvider,
+  AzureMapDataSourceProvider,
+  AzureMapFeature,
+  AzureMapLayerProvider,
+  AzureMapPopup,
+  IAzureMapOptions,
+} from "react-azure-maps";
+import { AuthenticationType, data } from "azure-maps-control";
+import { key } from "./key";
+import { carData } from "./data";
+
+const renderPoint = (data: AttractionType) => {
   return (
-    <>
-      <div style={{ width: "100%" }}>
-        <iframe
-          width="100%"
-          height="500"
-          src="https://maps.google.com/maps?width=100%25&amp;height=300&amp;hl=en&amp;q=Albany%20Ny+(Explore%20X)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
-        ></iframe>
-      </div>
-    </>
+    <AzureMapFeature
+      id={data.id}
+      type="Point"
+      coordinate={[data.location.lng, data.location.lat]}
+      properties={{
+        id: data.name,
+        popUpProp: data,
+      }}
+    />
   );
 };
 
-export default Map;
+const MapComponent = ({ attraction }: { attraction: AttractionType }) => {
+  const [popupOptions, setPopupOptions] = useState({});
+  const [popupProperties, setPopupProperties] = useState<any>({});
+
+  const option: IAzureMapOptions = useMemo(() => {
+    return {
+      authOptions: {
+        authType: AuthenticationType.subscriptionKey,
+        subscriptionKey: key,
+      },
+      center: [attraction.location.lng, attraction.location.lat], // Default center 10.031413, 105.768708
+      zoom: 16.5, // Default zoom level
+    };
+  }, []);
+
+  const memoizedMarkerRender = useMemo(() => renderPoint(attraction), []);
+
+  return (
+    <AzureMapsProvider>
+      <div style={{ height: "600px" }}>
+        <AzureMap options={option}>
+          <AzureMapDataSourceProvider
+            id={"MultiplePoint AzureMapDataSourceProvider"}
+          >
+            <AzureMapLayerProvider
+              id={"MultiplePoint AzureMapLayerProvider"}
+              options={{
+                iconOptions: {
+                  image: "pin-red",
+                },
+              }}
+              events={{
+                mousemove: (e: any) => {
+                  if (e.shapes && e.shapes.length > 0) {
+                    const prop = e.shapes[0];
+                    console.log(prop);
+
+                    // Set popup options
+                    setPopupOptions({
+                      ...popupOptions,
+                      position: new data.Position(
+                        prop.data.geometry.coordinates[0],
+                        prop.data.geometry.coordinates[1]
+                      ),
+                      pixelOffset: [0, -18],
+                    });
+
+                    if (prop.data.properties)
+                      // Set popup properties from Feature Properties that are declared on create Feature
+                      setPopupProperties({
+                        ...prop.data.properties.popUpProp,
+                      });
+                  }
+                },
+              }}
+              type="SymbolLayer"
+            />
+            {memoizedMarkerRender}
+          </AzureMapDataSourceProvider>
+          <AzureMapPopup
+            isVisible={true}
+            options={popupOptions}
+            popupContent={
+              <div style={{ padding: "8px 16px" }}>
+                <h3>{popupProperties.licensePlate}</h3>
+                <p>{popupProperties.model}</p>
+              </div> // Inject your JSX
+            }
+          />
+        </AzureMap>
+      </div>
+    </AzureMapsProvider>
+  );
+};
+
+export default MapComponent;

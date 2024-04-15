@@ -5,29 +5,28 @@ import Button from "../ui/Button";
 import useSWR from "swr";
 
 import PostCard from "./PostCard";
-import { convertToBlogPostType } from "@/app/utils/convertToBlogPostType";
-import { API_POST_QUERY, API_POST_URL } from "@/app/constants/api";
+import { convertToTourType } from "@/app/utils/convertToTourType";
+import { API_TOUR_QUERY, API_TOUR_URL } from "@/app/constants/api";
+import TourCard from "./TourCard";
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-export default function LatestPost() {
-  const [blogData, setBlogData] = useState([]);
+export default function FavoritePost() {
+  const [tourData, setTourData] = useState<TourType[]>([]);
   const { data, error, isLoading } = useSWR(
-    `${API_POST_URL}?${API_POST_QUERY}`,
+    `${API_TOUR_URL}?${API_TOUR_QUERY}`,
     fetcher
   );
 
   useEffect(() => {
     if (!isLoading)
-      setBlogData(data.map((post: any) => convertToBlogPostType(post)));
+      setTourData(data.map((post: any) => convertToTourType(post)));
   }, [isLoading]);
 
   console.log(data, error, isLoading);
 
-  const latestPost = blogData.sort((a: BlogPostType, b: BlogPostType) => {
-    return (
-      new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime()
-    );
-  });
+  const favoriteTour = tourData.filter(
+    (post: TourType) => post.isFavorite === true
+  );
 
   const [visibleBlogs, setVisibleBlogs] = useState(2);
 
@@ -35,6 +34,7 @@ export default function LatestPost() {
     setVisibleBlogs((pre) => pre + 4);
   };
 
+  if (favoriteTour.length === 0) return null;
   return (
     <section className="col-span-1" aria-labelledby="latest-post">
       <div className="w-full text-center">
@@ -42,15 +42,15 @@ export default function LatestPost() {
           id="latest-post"
           className="text-center text-2xl font-extrabold uppercase text-tertiary inline-block px mb-10"
         >
-          Latest Post
+          Favorite Post
         </h2>
       </div>
 
       <div className="grid grid-cols-2 max-md:grid-cols-1 gap-10">
-        {latestPost.slice(0, visibleBlogs).map((post, index) => (
-          <PostCard key={index} post={post} className="col-span-1" />
+        {favoriteTour.slice(0, visibleBlogs).map((tour, index) => (
+          <TourCard key={index} tour={tour} className="col-span-1" />
         ))}
-        {visibleBlogs < latestPost.length && (
+        {visibleBlogs < favoriteTour.length && (
           <div className="col-span-2 flex justify-center gap-10">
             <Button
               onClick={showMoreBlogs}

@@ -52,12 +52,6 @@ export default function Tours({ filter }: toursProps) {
   const filteredData = toursData
     .filter((post) => {
       if (filter.category) {
-        console.log(filter.category);
-        console.log(post.category.toLowerCase().replaceAll(" ", "-"));
-        console.log(
-          filter.category.toLowerCase() ===
-            post.category.toLowerCase().replaceAll(" ", "-")
-        );
         if (
           filter.category.toLowerCase() ===
           post.category.toLowerCase().replaceAll(" ", "-")

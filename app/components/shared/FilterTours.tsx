@@ -51,7 +51,7 @@ export default function FilterTours() {
           className="flex flex-col gap-3 w-full flex-1 px-2"
         >
           <Input placeholder="Search title" type="text" name="searchQuery" />
-          <div className="flex flex-row gap-4">
+          <div className="flex flex-row gap-4 flex-wrap">
             {allTagLabels.map((tag: TagType, index) => (
               <Button
                 text={tag.label}

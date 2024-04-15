@@ -13,5 +13,6 @@ export function convertToTourType(response: any): TourType {
       : [],
     endTime: tour.acf.endTime,
     startTime: tour.acf.startTime,
+    isFavorite: tour.acf.isFavorite || false,
   };
 }
