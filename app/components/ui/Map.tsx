@@ -34,7 +34,7 @@ const MapComponent = ({ attraction }: { attraction: AttractionType }) => {
   useEffect(() => {
     setIsClient(true);
   }, []);
-  if (!isClient) {
+  if (!isClient || typeof window !== "undefined") {
     return null; // Render nothing on the server
   }
 
