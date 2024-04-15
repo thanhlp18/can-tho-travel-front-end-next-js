@@ -8,6 +8,18 @@ export const navLinks = [
     label: "About",
   },
   {
+    route: "/posts",
+    label: "Posts",
+  },
+  {
+    route: "/tours",
+    label: "Tours",
+  },
+  {
+    route: "/attractions",
+    label: "Attractions",
+  },
+  {
     route: "/contact",
     label: "Contact",
   },

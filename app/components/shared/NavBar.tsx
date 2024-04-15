@@ -32,12 +32,14 @@ export default function NavBar({}: Props) {
     <nav
       className={clsx(
         "py-4 w-full",
-        isScrolling ? "fixed top-0 bg-white shadow-lg z-10" : "relative"
+        isScrolling
+          ? "fixed top-0 bg-white shadow-lg z-10"
+          : "relative border-b border-gray-100"
       )}
     >
       <div
         className={clsx(
-          "w-[95%] mx-auto max-w-[1450px] flex items-center justify-between pb-5 border-b border-gray-100",
+          "w-[95%] mx-auto max-w-[1450px] flex items-center justify-between  duration-500 transition-all ease-in-out",
           isScrolling && "pb-0 border-none"
         )}
       >
