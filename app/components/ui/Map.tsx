@@ -1,6 +1,6 @@
 "use client";
 import { AuthenticationType, data } from "azure-maps-control";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   AzureMap,
   AzureMapDataSourceProvider,
@@ -28,7 +28,12 @@ const renderPoint = (data: AttractionType) => {
 
 const MapComponent = ({ attraction }: { attraction: AttractionType }) => {
   const [popupOptions, setPopupOptions] = useState({});
+  const [isClient, setIsClient] = useState<boolean>(false);
+
   const [popupProperties, setPopupProperties] = useState<any>({});
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const option: IAzureMapOptions = useMemo(() => {
     return {
@@ -42,7 +47,9 @@ const MapComponent = ({ attraction }: { attraction: AttractionType }) => {
   }, []);
 
   const memoizedMarkerRender = useMemo(() => renderPoint(attraction), []);
-
+  if (!isClient) {
+    return null; // Render nothing on the server
+  }
   return (
     <AzureMapsProvider>
       <div style={{ height: "600px" }}>
