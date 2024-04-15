@@ -1,14 +1,9 @@
 "use client";
+import { API_ATTRACTION_QUERY, API_ATTRACTION_URL } from "@/app/constants/api";
+import { convertToAttractions } from "@/app/utils/convertToAttractions";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
-import { Wrapper } from "@googlemaps/react-wrapper";
 import AttractionCard from "./AttractionCard";
-import { convertToAttractions } from "@/app/utils/convertToAttractions";
-import {
-  API_ATTRACTION_QUERY,
-  API_ATTRACTION_URL,
-  API_POST_QUERY,
-} from "@/app/constants/api";
 
 interface AttractionProps {
   attractions?: AttractionType[];
